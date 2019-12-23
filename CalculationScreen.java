@@ -25,7 +25,7 @@ public class CalculationScreen extends JFrame {
     String[] sem05Subjects = {"THEORY OF COMPUTATION", "COMPUTER NETWORKS", "ELECTIVE I", "ELECTIVE II", "OPEN ELECTIVE-I", "SYSTEM ANALYSIS AND DESIGN LABORATORY", "COMPUTER NETWORKS LABORATORY", "LIFE SKILLS : APTITUDE"};
     String[] sem06Subjects = {"COMPILER DESIGN", "CRYPTOGRAPHY AND NETWORK SECURITY", "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING", "ELECTIVE III", "ELECTIVE IV", "OPEN ELECTIVE - II", "MOBILE APPLICATION DEVELOPMENT LABORATORY", "MINI PROJECT", "LIFE SKILLS : COMPETITIVE EXAMS"};
     String[] sem07Subjects = {"PROFESSIONAL ETHICS FOR ENGINEERS", "GRAPHICS AND MULTIMEDIA", "SOFTWARE AND PROJECT MANAGEMENT", "ELECTIVE V", "ELECTIVE VI", "OPEN ELECTIVE - III", "GRAPHICS AND MULTIMEDIA LABORATORY", "TECHNICAL SEMINAR"};
-    String[] sem08Subjects = {"ELECTIVE VII", "ELECTIVE VIII", "OPEN ELECTIVE - IV", "PROJECT WORK","ELECTIVE VII I", "ELECTIVE VIII I", "OPEN ELECTIVE - IV I", "PROJECT WORK I"};
+    String[] sem08Subjects = {"ELECTIVE VII", "ELECTIVE VIII", "OPEN ELECTIVE - IV", "PROJECT WORK","DUMMY SUBJECT I", "DUMMY SUBJECT II", "DUMMY SUBJECT III", "DUMMY SUBJECT IV"};
 
     //Creating a Hashmap to store letterGradesMap and results into it.
     private HashMap<String, Double> letterGradeMap = new HashMap<>();
@@ -36,7 +36,7 @@ public class CalculationScreen extends JFrame {
     public void CalculationScreen() {
 
         //Populating HashMap with String and Value Array for grades
-        letterGradeMap.put("Select a Grade", 0.0);
+        letterGradeMap.put("Select a Grade", 0.001);
         letterGradeMap.put("O", 10.0);
         letterGradeMap.put("A+", 9.0);
         letterGradeMap.put("A", 8.0);
@@ -128,10 +128,10 @@ public class CalculationScreen extends JFrame {
         sem8Map.put("ELECTIVE VIII", 3.0);
         sem8Map.put("OPEN ELECTIVE - IV", 3.0);
         sem8Map.put("PROJECT WORK", 10.0);
-        sem8Map.put("ELECTIVE VII I", 3.0);
-        sem8Map.put("ELECTIVE VIII I", 3.0);
-        sem8Map.put("OPEN ELECTIVE - IV I", 3.0);
-        sem8Map.put("PROJECT WORK I", 10.0);
+        sem8Map.put("DUMMY SUBJECT I", 0.001);
+        sem8Map.put("DUMMY SUBJECT II", 0.001);
+        sem8Map.put("DUMMY SUBJECT III", 0.001);
+        sem8Map.put("DUMMY SUBJECT IV", 0.001);
         perSemesterSubjectCredits.put("SEM08", sem8Map);
 
         ArrayList<HashMap<String, Double>> allSems = new ArrayList<>();
@@ -518,19 +518,30 @@ public class CalculationScreen extends JFrame {
         }
 
         //Creating an Action Listener for Reset GPA Button.
-        for (JButton[] resetGpa : allSemestersGPAResetButton) {
+        for (JButton[] resetall : allSemestersGPAResetButton) {
             for (int i = 0; i <= 7; i++) {
-                resetGpa[i].addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        for (JComboBox[] sem : allSemesters) {
-                            for (int i = 0; i <= 7; i++) {
-                                sem[i].setSelectedIndex(0);
-
+                resetall[i].addActionListener(
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent event) {
+                                for (JComboBox[] sem : allSemesters) {
+                                    for (int i = 0; i <= 7; i++) {
+                                        sem[i].setSelectedIndex(0);
+                                        resultsCGPA.clear();
+                                        for (JButton[] cgp : allSemestersGPAButton) {
+                                            for (int l = 0; l <= 7; l++) {
+                                                cgp[l].setText("Calculate GPA");
+                                            }
+                                            for (JButton[] ccgp : allSemestersCGPAButton) {
+                                                for (int m = 0; m <= 7; m++) {
+                                                    ccgp[m].setText("Calculate CGPA");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
-                    }
-                });
+                        });
             }
         }
 
